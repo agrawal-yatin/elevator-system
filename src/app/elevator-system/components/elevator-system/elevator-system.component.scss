@@ -11,6 +11,11 @@
     background-color: #ffffff;
   }
 
+  .app-container {
+    max-height: calc(100vh - 75px);
+    overflow-y: auto;
+  }
+
   .header {
     box-shadow: 2px 2px 5px #d1d1d1;
   }

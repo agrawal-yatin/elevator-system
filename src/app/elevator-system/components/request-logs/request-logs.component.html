@@ -1,0 +1,22 @@
+<div class="card shadow-sm mt-3 app-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span class="d-flex align-items-center gap-2">
+            <i class="bi bi-layout-text-window-reverse"></i>
+            Request Logs
+        </span>
+        <button class="btn btn-sm btn-outline-danger"
+            [style.visibility]="elevatorService.requestLogs.length === 0 ? 'hidden' : 'visible'" (click)="clearLogs()">
+            Clear Logs<i class="ms-2 bi bi-trash"></i></button>
+
+    </div>
+    <div class="card-body log-container bg-light">
+        <div *ngIf="elevatorService.requestLogs.length === 0" class="text-center text-muted py-5">
+            No logs to display.
+        </div>
+        <div *ngFor="let log of elevatorService.requestLogs; trackBy: elevatorService.trackByIndex"
+            class="d-flex justify-content-between">
+            <span [innerHTML]="log"></span>
+            <span class="text-muted">{{ currentTime | date: 'EEEE, MMMM d, y, h:mm a' }}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="col-md-3 col-sm-6 mt-3 mt-sm-3 mt-md-0"
+    *ngFor="let elevator of elevatorService.elevators; trackBy: elevatorService.trackByIndex">
+    <div class="card shadow-sm rounded-3 app-card" [ngClass]="{ highlight: elevator.justAssigned }">
+        <div class="card-header d-flex justify-content-between align-items-center"
+            [ngClass]="elevator.busy ? 'elevator-busy' : 'elevator-free'">
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-building"></i>
+                Elevator {{ elevator.id }}
+            </span>
+            <span [ngClass]="elevator.busy ? 'status-dot busy' : 'status-dot free'"></span>
+        </div>
+        <div class="card-body p-1 text-center">
+            <div *ngFor="let floor of reversedFloors; trackBy: elevatorService.trackByIndex"
+                class="floor-box p-2 mb-1 rounded text-center movement-indicator" [ngClass]="{
+                   'btn-netRoadShow text-white animate__animated animate__pulse':
+                     elevator.currentFloor === floor,
+                   'bg-light text-muted': elevator.currentFloor !== floor
+                 }">
+                Floor {{ floor }}
+            </div>
+        </div>
+        <div class="card-footer bg-white border-top text-start small px-3 py-2">
+            <!-- <div class="info-line mb-1"><strong>Status:</strong> {{ elevator.direction }}</div> -->
+            <div class="info-line mb-1"><strong>Up Queue:</strong> {{ elevator.upQueue.join(', ') || 'None' }}</div>
+            <div class="info-line"><strong>Down Queue:</strong> {{ elevator.downQueue.join(', ') || 'None' }}</div>
+        </div>
+    </div>
+</div>

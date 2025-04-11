@@ -1,0 +1,73 @@
+<div class="fluid-container bg-cover">
+  <h4 class="py-3 px-4 header d-flex align-items-center gap-2">
+    <img src="assets/images/elevator.png" class="ms-3 me-1" alt="Elevator Icon" width="32" height="32">
+    Elevator Control System
+  </h4>
+  <div class="px-4 py-2">
+    <div class="row">
+      <div class="col-md-4">
+        <!-- Control Panel -->
+        <app-control-panel></app-control-panel>
+      </div>
+      <div class="col-md-8">
+        <!-- Elevators Display -->
+        <app-elevators class="row"></app-elevators>
+        <!-- Request Log -->
+        <app-request-logs></app-request-logs>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hidden Modal Trigger -->
+<button #modalTrigger type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#introModal">
+  Launch Intro Modal
+</button>
+<!-- Intro Modal -->
+<div class="modal fade" id="introModal" tabindex="-1" aria-labelledby="introModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="introModalLabel">Welcome to the Elevator Control System POC</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>This simulation includes the following features:</p>
+        <div class="feature-list">
+          <div class="fealure-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-building"></i> Supports 10 floors in a multi-story building.
+          </div>
+          <div class="feature-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-bar-chart-steps"></i> Operates 4 elevators working independently**.
+          </div>
+          <div class="feature-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-arrow-repeat"></i> Handles multiple floor requests simultaneously.
+          </div>
+          <div class="feature-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-lightning-charge-fill"></i> Real-time elevator movement and state updates.
+          </div>
+          <div class="feature-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-journal-text"></i> Live activity logs for tracking all requests.
+          </div>
+          <div class="feature-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-cpu"></i> Intelligent elevator assignment and direction handling.
+          </div>
+          <div class="feature-item d-flex align-items-center mb-2">
+            <i class="me-2 bi bi-geo-alt-fill"></i> Optimized algorithm to pick the closest elevator for each request.
+          </div>
+        </div>
+        <p>Use the control panel to request elevators and watch them operate in real-time.</p>
+        <small class="text-muted">** This Elevator system operates on the assumption that all requests are handled
+          through a
+          centralized control panel, with no internal controls inside each of the elevators.</small>
+        <br>
+        <small class="text-muted">** For POC purpose, I’ve set the default halt time to 1000 ms. It’s configurable in
+          the constants file.</small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn btn-outline-brand" data-bs-dismiss="modal">
+          Start
+          <i class="bi bi-chevron-double-right ms-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>

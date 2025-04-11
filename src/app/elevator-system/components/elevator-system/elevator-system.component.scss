@@ -1,0 +1,74 @@
+.card-body .col-6 {
+  border-right: 1px solid #eee;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+:host ::ng-deep {
+  .bg-cover {
+    background-color: #ffffff;
+  }
+
+  .header {
+    box-shadow: 2px 2px 5px #d1d1d1;
+  }
+
+  .app-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+
+    .card-header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      font-weight: 500;
+    }
+
+    .card-body {
+      padding: 1rem;
+      background-color: transparent;
+    }
+
+    .card-footer {
+      background-color: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  .btn-outline-brand {
+    color: #305a7a;
+    border-color: #305a7a;
+  }
+
+  .btn-outline-brand:hover {
+    color: #fff;
+    background-color: #305a7a;
+    border-color: #305a7a;
+  }
+
+  .feature-list {
+    margin-left: 5px;
+    border-left: 2px solid #305a7a;
+    padding-left: 15px;
+    margin-bottom: 20px;
+  }
+
+  .btn-outline-brand:hover .bi-chevron-double-right {
+    animation: pulseRight 0.8s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  @keyframes pulseRight {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+}

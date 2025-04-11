@@ -1,0 +1,5 @@
+node_modules
+.angular
+.DS_Store
+dist
+package-lock.json

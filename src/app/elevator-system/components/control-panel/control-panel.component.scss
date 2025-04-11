@@ -1,0 +1,126 @@
+.elevator-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease-in-out;
+  margin-right: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.elevator-btn::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease-out, opacity 0.8s ease-out;
+}
+
+.elevator-btn:active::after {
+  transform: scale(4);
+  opacity: 1;
+  transition: transform 0s, opacity 0.8s ease-out;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.elevator-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.elevator-btn:last-child {
+  margin-right: 0;
+}
+
+.btn-outline-brand {
+  color: #305a7a;
+  border-color: #305a7a;
+}
+
+.btn-outline-brand:hover {
+  color: #fff;
+  background-color: #305a7a;
+  border-color: #305a7a;
+}
+
+.btn-unit {
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.arrow {
+  display: inline-block;
+}
+
+.elevator-btn:hover .arrow-up {
+  transform: translateY(-4px);
+}
+
+.elevator-btn:hover .arrow-down {
+  transform: translateY(4px);
+}
+
+@keyframes moveArrowUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  51% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveArrowDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  51% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.elevator-btn:hover .arrow-up-hover {
+  animation: moveArrowUp 0.6s ease-in-out;
+  animation-fill-mode: none;
+  transform: translateY(0);
+}
+
+.elevator-btn:hover .arrow-down-hover {
+  animation: moveArrowDown 0.6s ease-in-out;
+  animation-fill-mode: none;
+  transform: translateY(0);
+}

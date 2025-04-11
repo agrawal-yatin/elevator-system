@@ -130,4 +130,4 @@ PRs are welcome! If you'd like to improve the elevator algorithm, add more featu
 
 ## 👨‍💻 Author
 
-Developed by [Yatin Agrawal](https://github.com/yatinagrawal)
+Developed by [Yatin Agrawal](https://github.com/agrawal-yatin)

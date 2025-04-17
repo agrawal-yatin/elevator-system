@@ -21,7 +21,11 @@ describe("ElevatorService", () => {
 
   it("should log a request and assign an elevator", () => {
     service.requestElevator(5, ElevatorConstants.DIR.UP);
-    expect(service.getLogs()[0]).toContain("Request at Floor 5 (up)");
+    const plainLog = service
+      .getLogs()[0]
+      .replace(/<[^>]*>/g, "")
+      .toLowerCase();
+    expect(plainLog).toContain("request at floor 5 (up)");
   });
 
   // it("should enqueue floor in correct direction queue", () => {
@@ -57,7 +61,7 @@ describe("ElevatorService", () => {
     expect(service.trackByIndex(3)).toBe(3);
   });
 
-  it("should not move elevator if busy", () => {
+  it("should not move elevator below bottom most floor", () => {
     const elevator = service.getElevators()[0];
     elevator.busy = true;
     service["moveElevator"](elevator);

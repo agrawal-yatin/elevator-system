@@ -13,7 +13,14 @@ describe("ElevatorsComponent", () => {
     mockElevatorService = jasmine.createSpyObj("ElevatorService", [
       "getElevators",
       "getLogs",
+      "getFloors",
     ]);
+    mockElevatorService.getFloors.and.returnValue(
+      Array.from(
+        { length: ElevatorConstants.CONFIG.TOTAL_FLOORS },
+        (_, i) => i + 1
+      )
+    );
 
     await TestBed.configureTestingModule({
       declarations: [ElevatorsComponent],
@@ -29,10 +36,14 @@ describe("ElevatorsComponent", () => {
   });
 
   it("should create the component", () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it("should initialize floors and reversedFloors correctly", () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     expect(component.floors.length).toBe(ElevatorConstants.CONFIG.TOTAL_FLOORS);
     expect(component.floors[0]).toBe(1);
     expect(component.reversedFloors[0]).toBe(

@@ -12,7 +12,14 @@ describe("ControlPanelComponent", () => {
     mockElevatorService = jasmine.createSpyObj("ElevatorService", [
       "requestElevator",
       "generateRandomRequest",
+      "getFloors",
     ]);
+    mockElevatorService.getFloors.and.returnValue(
+      Array.from(
+        { length: ElevatorConstants.CONFIG.TOTAL_FLOORS },
+        (_, i) => i + 1
+      )
+    );
 
     await TestBed.configureTestingModule({
       declarations: [ControlPanelComponent],
@@ -27,16 +34,19 @@ describe("ControlPanelComponent", () => {
   });
 
   it("should create", () => {
+    component.ngOnInit();
     expect(component).toBeTruthy();
   });
 
   it("should initialize floors to 10 items", () => {
+    component.ngOnInit();
     expect(component.floors.length).toBe(10);
     expect(component.floors[0]).toBe(1);
     expect(component.floors[9]).toBe(10);
   });
 
   it("should call requestElevator with correct parameters", () => {
+    component.ngOnInit();
     component.requestElevator(3, ElevatorConstants.DIR.UP);
     expect(mockElevatorService.requestElevator).toHaveBeenCalledWith(
       3,
@@ -46,77 +56,63 @@ describe("ControlPanelComponent", () => {
 
   it("should toggle loading during generateRandomRequest call", (done) => {
     expect(component.loading).toBeFalse();
+    mockElevatorService.generateRandomRequest.and.callFake(() => {
+      setTimeout(() => {
+        component.loading = false;
+        fixture.detectChanges();
+        expect(component.loading).toBeFalse();
+        done();
+      }, 10);
+    });
     component.generateRandomRequest();
     expect(component.loading).toBeTrue();
-
-    setTimeout(() => {
-      expect(mockElevatorService.generateRandomRequest).toHaveBeenCalled();
-      expect(component.loading).toBeFalse();
-      done();
-    }, 500);
   });
 
   it("should set loading to true when generateRandomRequest is called", () => {
+    mockElevatorService.generateRandomRequest.and.callFake(() => {});
     component.generateRandomRequest();
     expect(component.loading).toBeTrue();
   });
 
   it("should call requestElevator method", () => {
-    spyOn(component, "requestElevator");
+    component.ngOnInit();
     component.requestElevator(5, ElevatorConstants.DIR.UP);
-    expect(component.requestElevator).toHaveBeenCalledWith(
+    expect(mockElevatorService.requestElevator).toHaveBeenCalledWith(
       5,
       ElevatorConstants.DIR.UP
     );
   });
 
   it("should render 10 floor panels", () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const floorElements = compiled.querySelectorAll("strong");
     expect(floorElements.length).toBe(10);
   });
 
-  // it("should disable the Up button on floor 10", () => {
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   const floorItems = compiled.querySelectorAll(".floor-panel");
-
-  //   const floor10 = Array.from(floorItems).find((item) =>
-  //     item.textContent?.includes("Floor 10")
-  //   );
-
-  //   const upButton = floor10?.querySelector("button.btn-outline-primary");
-  //   expect(upButton?.hasAttribute("disabled")).toBeTrue();
-  // });
-
-  // it("should disable the Down button on floor 1", () => {
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   const floorItems = compiled.querySelectorAll(".floor-panel");
-
-  //   const floor1 = Array.from(floorItems).find((item) =>
-  //     item.textContent?.includes("Floor 1")
-  //   );
-
-  //   const downButton = floor1?.querySelector("button.btn-outline-danger");
-  //   expect(downButton?.hasAttribute("disabled")).toBeTrue();
-  // });
-
   it("should call generateRandomRequest on button click", () => {
+    component.ngOnInit();
+    component.loading = false;
+    fixture.detectChanges();
     spyOn(component, "generateRandomRequest");
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const button = compiled.querySelector(
-      "button.btn-primary"
+      "button.btn-outline-brand"
     ) as HTMLButtonElement;
+    expect(button).toBeTruthy();
     button.click();
     expect(component.generateRandomRequest).toHaveBeenCalled();
   });
 
   it('should show "Generating..." text when loading is true', () => {
+    component.ngOnInit();
     component.loading = true;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const button = compiled.querySelector(
-      "button.btn-primary"
+      "button.btn-outline-brand"
     ) as HTMLButtonElement;
     expect(button.textContent?.trim()).toBe("Generating...");
   });

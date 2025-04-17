@@ -44,7 +44,8 @@ describe("RequestLogsComponent", () => {
 
   it('should display "Request Log" heading', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const heading = compiled.querySelector("h5");
+    const heading = compiled.querySelector("span");
+    fixture.detectChanges();
     expect(heading?.textContent).toContain("Request Log");
   });
 });
